@@ -1402,7 +1402,7 @@ function mka() {
             make -j `sysctl hw.ncpu|cut -d" " -f2` "$@"
             ;;
         *)
-            schedtool -B -n 1 -e ionice -n 1 make -j$(cat /proc/cpuinfo | grep "^processor" | wc -l) "$@"
+            mk_timer schedtool -B -n 1 -e ionice -n 1 make -j$(cat /proc/cpuinfo | grep "^processor" | wc -l) "$@"
             ;;
     esac
 }
@@ -1448,14 +1448,14 @@ function get_make_command()
     fi
 }
 
-function _wrap_build()
+function mk_timer()
 {
     if [[ "${ANDROID_QUIET_BUILD:-}" == true ]]; then
       "$@"
       return $?
     fi
     local start_time=$(date +"%s")
-    "$@"
+    $@
     local ret=$?
     local end_time=$(date +"%s")
     local tdiff=$(($end_time-$start_time))
@@ -1527,7 +1527,7 @@ function mmma()
 
 function make()
 {
-    _wrap_build $(get_make_command "$@") "$@"
+    mk_timer $(get_make_command "$@") "$@"
 }
 
 function provision()
