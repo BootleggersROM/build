@@ -57,6 +57,10 @@ if [ -n "$BUILD_THUMBPRINT" ] ; then
   echo "ro.build.thumbprint=$BUILD_THUMBPRINT"
 fi
 
+if [ -n "$DEVICE_MAINTAINERS" ] ; then
+  echo "ro.bootleggers.maintainer=$DEVICE_MAINTAINERS"
+fi
+
 echo "ro.bootleggers.device=$BOOTLEGGERS_DEVICE"
 
 echo "# end build properties"
