@@ -526,13 +526,13 @@ else if get_stage("%(bcb_dev)s") == "3/3" then
     buildidn = GetBuildProp("ro.build.id", OPTIONS.info_dict)
     buildday = GetBuildProp("ro.build.date", OPTIONS.info_dict)
     securep = GetBuildProp("ro.build.version.security_patch", OPTIONS.info_dict)
-    density = GetBuildProp("ro.sf.lcd_density", OPTIONS.info_dict)
+    density = GetBuildProp("ro.sf.lcd_density", OPTIONS.info_dict,False)
     device = GetBuildProp("ro.bootleg.device", OPTIONS.info_dict)
     devicefull = GetBuildProp("ro.product.name", OPTIONS.info_dict)
     songcodename = GetBuildProp("ro.bootleg.songcodename", OPTIONS.info_dict)
     buildtype = GetBuildProp("ro.bootleg.buildtype", OPTIONS.info_dict)
     androidver = GetBuildProp("ro.build.version.release", OPTIONS.info_dict)
-    manifacturer = GetBuildProp("ro.product.manufacturer", OPTIONS.info_dict)
+    manufacturer = GetBuildProp("ro.product.manufacturer", OPTIONS.info_dict)
     sdkver = GetBuildProp("ro.build.version.sdk", OPTIONS.info_dict)
     if buildtype == "Shishufied":
       buildmean = "Official"
@@ -559,7 +559,7 @@ else if get_stage("%(bcb_dev)s") == "3/3" then
     script.Print("***************** Device Info ********************");
     script.Print(" Device: %s (%s)"%(devicefull, device));
     script.Print("");
-    script.Print(" Manufacturer: %s"%(manifacturer));
+    script.Print(" Manufacturer: %s"%(manufacturer));
     script.Print("");
     script.Print(" LCD density: %s"%(density));
     script.Print("");
@@ -658,13 +658,15 @@ def WriteMetadata(metadata, output_zip):
   common.ZipWriteStr(output_zip, METADATA_NAME, value,
                      compress_type=zipfile.ZIP_STORED)
 
-
-def GetBuildProp(prop, info_dict):
+def GetBuildProp(prop, info_dict, raise_error=True):
   """Return the fingerprint of the build of a given target-files info_dict."""
   try:
     return info_dict.get("build.prop", {})[prop]
   except KeyError:
-    raise common.ExternalError("couldn't find %s in build.prop" % (prop,))
+    if raise_error:
+      raise common.ExternalError("couldn't find %s in build.prop" % (prop,))
+    else:
+      return "Unknown"
 
 
 def HandleDowngradeMetadata(metadata):
