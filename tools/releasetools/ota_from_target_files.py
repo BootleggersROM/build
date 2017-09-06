@@ -520,7 +520,50 @@ else if get_stage("%(bcb_dev)s") == "3/3" then
   script.Print("**************************************************");
   script.Print("*****************Bootleggers ROM******************");
   script.Print("**************************************************");
-
+  
+  if GetBuildProp("ro.bootleggers.display.version", OPTIONS.info_dict) is not None:
+    buildid = GetBuildProp("ro.bootleggers.buildshort", OPTIONS.info_dict)
+    buildidn = GetBuildProp("ro.build.id", OPTIONS.info_dict)
+    buildday = GetBuildProp("ro.build.date", OPTIONS.info_dict)
+    securep = GetBuildProp("ro.build.version.security_patch", OPTIONS.info_dict)
+    density = GetBuildProp("ro.sf.lcd_density", OPTIONS.info_dict)
+    device = GetBuildProp("ro.bootleggers.device", OPTIONS.info_dict)
+    devicefull = GetBuildProp("ro.product.name", OPTIONS.info_dict)
+    songcodename = GetBuildProp("ro.bootleggers.songcodename", OPTIONS.info_dict)
+    buildtype = GetBuildProp("ro.bootleggers.releasetype", OPTIONS.info_dict)
+    androidver = GetBuildProp("ro.build.version.release", OPTIONS.info_dict)
+    manifacturer = GetBuildProp("ro.product.manufacturer", OPTIONS.info_dict)
+    sdkver = GetBuildProp("ro.build.version.sdk", OPTIONS.info_dict)
+    if buildtype == "Shishufied":
+      buildmean = "Official"
+    elif buildtype == "Unshishufied":
+      buildmean = "Unofficial"
+    elif buildtype == "Shishult":
+      buildmean = "Full of trash"
+    else:
+      buildmean = "idk"
+    script.Print("***************** Some Info **********************");
+    script.Print(" OS version: %s"%(buildid));
+    script.Print("");
+    script.Print(" Android version: %s"%(androidver));
+    script.Print("");
+    script.Print(" Security patch: %s"%(securep));
+    script.Print("");
+    script.Print(" SDK version: %s"%(sdkver));
+    script.Print("");
+    script.Print(" Your Build is %s (%s)"%(buildtype, buildmean));
+    script.Print("");
+    script.Print(" Build ID: %s"%(buildidn));
+    script.Print("");
+    script.Print(" Build date: %s"%(buildday));
+    script.Print("***************** Device Info ********************");
+    script.Print(" Device: %s (%s)"%(devicefull, device));
+    script.Print("");
+    script.Print(" Manufacturer: %s"%(manifacturer));
+    script.Print("");
+    script.Print(" LCD density: %s"%(density));
+    script.Print("");
+    script.Print("**************************************************");
   if OPTIONS.wipe_user_data:
     system_progress -= 0.1
   if HasVendorPartition(input_zip):
