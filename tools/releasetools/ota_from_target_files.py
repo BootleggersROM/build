@@ -938,6 +938,54 @@ else if get_stage("%(bcb_dev)s") == "3/3" then
   script.Print("*****************Bootleggers ROM******************");
   script.Print("**************************************************");
 
+  if target_info.GetBuildProp("ro.bootleggers.display.version") is not None:
+    buildid = target_info.GetBuildProp("ro.bootleggers.buildshort")
+    buildidn = target_info.GetBuildProp("ro.build.id")
+    buildday = target_info.GetBuildProp("ro.build.date")
+    securep = target_info.GetBuildProp("ro.build.version.security_patch")
+    device = target_info.GetBuildProp("ro.bootleggers.device")
+    devicefull = target_info.GetBuildProp("ro.product.name")
+    songcodename = target_info.GetBuildProp("ro.bootleggers.songcodename")
+    buildtype = target_info.GetBuildProp("ro.bootleggers.releasetype")
+    androidver = target_info.GetBuildProp("ro.build.version.release")
+    manifacturer = target_info.GetBuildProp("ro.product.manufacturer")
+    sdkver = target_info.GetBuildProp("ro.build.version.sdk")
+    if buildtype == "Shishufied":
+      buildmean = "Official"
+    elif buildtype == "Unshishufied":
+      buildmean = "Unofficial"
+    elif buildtype == "Shishult":
+      buildmean = "Full of trash"
+    else:
+      buildmean = "idk"
+
+    if "niceparse." in songcodename:
+      finalsc = songcodename.split(".")[1].replace("_"," ")
+    else:
+      finalsc = songcodename
+    script.Print("***************** Some Info **********************");
+    script.Print(" OS version: %s"%(buildid));
+    script.Print("");
+    script.Print(" Android version: %s"%(androidver));
+    script.Print("");
+    script.Print(" Security patch: %s"%(securep));
+    script.Print("");
+    script.Print(" SDK version: %s"%(sdkver));
+    script.Print("");
+    script.Print(" Your Build is %s (%s)"%(buildtype, buildmean));
+    script.Print("");
+    script.Print(" Build ID: %s"%(buildidn));
+    script.Print("");
+    script.Print(" Build date: %s"%(buildday));
+    script.Print("");
+    script.Print(" Song codename: %s"%(finalsc));
+    script.Print("***************** Device Info ********************");
+    script.Print(" Device: %s (%s)"%(devicefull, device));
+    script.Print("");
+    script.Print(" Manufacturer: %s"%(manifacturer));
+    script.Print("");
+    script.Print(" *******************************************");
+
   if OPTIONS.wipe_user_data:
     system_progress -= 0.1
   if HasVendorPartition(input_zip):
