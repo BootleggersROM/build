@@ -234,6 +234,50 @@ else if get_stage("%(bcb_dev)s") == "3/3" then
   script.Print("··················#121217·················");
   script.Print("··········································");
 
+  if target_info.GetBuildProp("ro.bootleggers.display.version") is not None:
+    buildid = target_info.GetBuildProp("ro.bootleggers.buildshort")
+    buildidn = target_info.GetBuildProp("ro.build.id")
+    buildday = target_info.GetBuildProp("ro.build.date")
+    securep = target_info.GetBuildProp("ro.build.version.security_patch")
+    device = target_info.GetBuildProp("ro.bootleggers.device")
+    devicefull = target_info.GetBuildProp("ro.product.model")
+    songcodename = target_info.GetBuildProp("ro.bootleggers.songcodename")
+    buildtype = target_info.GetBuildProp("ro.bootleggers.releasetype")
+    androidver = target_info.GetBuildProp("ro.build.version.release")
+    manufacturer = target_info.GetBuildProp("ro.product.manufacturer")
+    sdkver = target_info.GetBuildProp("ro.build.version.sdk")
+    if buildtype == "Shishufied":
+      buildmean = "Official"
+    elif buildtype == "Unshishufied":
+      buildmean = "Unofficial"
+    else:
+      buildmean = "Unsupported"
+
+    if "niceparse." in songcodename:
+      finalsc = songcodename.split(".")[1].replace("_"," ")
+    else:
+      finalsc = songcodename
+    script.Print("·|·|·|·|·|·|·|·Release Info·|·|·|·|·|·|·|·");
+    script.Print(" Android version: %s (API %s)"%(androidver,sdkver));
+    script.Print("");
+    script.Print(" Security patch: %s"%(securep));
+    script.Print("");
+    script.Print(" Bootleggers version: %s"%(buildid));
+    script.Print("");
+    script.Print(" Your Build is %s (%s)"%(buildtype, buildmean));
+    script.Print("");
+    script.Print(" Build ID: %s"%(buildidn));
+    script.Print("");
+    script.Print(" Build date: %s"%(buildday));
+    script.Print("");
+    script.Print(" Song codename: %s"%(finalsc));
+    script.Print("·|·|·|·|·|·|·|·|Device Info·|·|·|·|·|·|·|·");
+    script.Print(" Device: %s (%s)"%(devicefull, device));
+    script.Print("");
+    script.Print(" Manufacturer: %s"%(manufacturer));
+    script.Print("");
+    script.Print("··········································");
+
   device_specific.FullOTA_InstallBegin()
 
   # All other partitions as well as the data wipe use 10% of the progress, and
