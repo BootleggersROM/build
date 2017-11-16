@@ -179,9 +179,9 @@ include $(BUILD_SYSTEM)/node_fns.mk
 include $(BUILD_SYSTEM)/product.mk
 include $(BUILD_SYSTEM)/device.mk
 
-# A Gzosp build needs only the Gzosp product makefiles.
-ifneq ($(GZOSP_BUILD),)
-  all_product_configs := $(shell find device -path "*/$(GZOSP_BUILD)/gzosp.mk")
+# A Bootleggers build needs only the Bootleggers product makefiles.
+ifneq ($(BOOTLEG_BUILD),)
+  all_product_configs := $(shell find device -path "*/$(BOOTLEG_BUILD)/bootleg.mk")
 else
   ifneq ($(strip $(TARGET_BUILD_APPS)),)
   # An unbundled app build needs only the core product makefiles.
@@ -192,9 +192,9 @@ else
   # files in the tree.
   all_product_configs := $(get-all-product-makefiles)
   endif # TARGET_BUILD_APPS
-endif # GZOSP_BUILD
+endif # BOOTLEG_BUILD
 
-ifeq ($(GZOSP_BUILD),)
+ifeq ($(BOOTLEG_BUILD),)
 all_named_products :=
 
 # Find the product config makefile for the current product.

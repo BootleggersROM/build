@@ -77,13 +77,13 @@ function check_product()
         echo "Couldn't locate the top of the tree.  Try setting TOP." >&2
         return
     fi
-    if (echo -n $1 | grep -q -e "^gzosp_") ; then
-        GZOSP_BUILD=$(echo -n $1 | sed -e 's/^gzosp_//g')
-        export BUILD_NUMBER=$( (date +%s%N ; echo $GZOSP_BUILD; hostname) | openssl sha1 | sed -e 's/.*=//g; s/ //g' | cut -c1-10 )
+    if (echo -n $1 | grep -q -e "^bootleg_") ; then
+        BOOTLEG_BUILD=$(echo -n $1 | sed -e 's/^bootleg_//g')
+        export BUILD_NUMBER=$( (date +%s%N ; echo $BOOTLEG_BUILD; hostname) | openssl sha1 | sed -e 's/.*=//g; s/ //g' | cut -c1-10 )
     else
-        GZOSP_BUILD=
+        BOOTLEG_BUILD=
     fi
-    export GZOSP_BUILD
+    export BOOTLEG_BUILD
 
         TARGET_PRODUCT=$1 \
         TARGET_BUILD_VARIANT= \
@@ -523,7 +523,7 @@ function print_lunch_menu()
         i=$(($i+1))
     done | column
 
-    if [ "z${GZOSP_DEVICES_ONLY}" != "z" ]; then
+    if [ "z${BOOTLEG_DEVICES_ONLY}" != "z" ]; then
        echo "... and don't forget the bacon!"
     fi
 
@@ -534,7 +534,7 @@ function brunch()
 {
     breakfast $*
     if [ $? -eq 0 ]; then
-        mka gzosp
+        mka bootleg
     else
         echo "No such item in brunch menu. Try 'breakfast'"
         return 1
@@ -552,10 +552,10 @@ function breakfast()
 {
     target=$1
     local variant=$2
-    GZOSP_DEVICES_ONLY="true"
+    BOOTLEG_DEVICES_ONLY="true"
     unset LUNCH_MENU_CHOICES
     add_lunch_combo full-eng
-    for f in `/bin/ls vendor/gzosp/vendorsetup.sh 2> /dev/null`
+    for f in `/bin/ls vendor/bootleggers/vendorsetup.sh 2> /dev/null`
         do
             echo "including $f"
             . $f
@@ -571,11 +571,11 @@ function breakfast()
             # A buildtype was specified, assume a full device name
             lunch $target
         else
-            # This is probably just the GZOSP model name
+            # This is probably just the BOOTLEGGERS model name
             if [ -z "$variant" ]; then
                 variant="userdebug"
             fi
-            lunch gzosp_$target-$variant
+            lunch bootleg_$target-$variant
         fi
     fi
     return $?
@@ -625,16 +625,16 @@ function lunch()
     check_product $product
     if [ $? -ne 0 ]
     then
-        # if we can't find a product, try to grab it off the Gzosp GitHub
+        # if we can't find a product, try to grab it off the Bootleggers GitHub
         T=$(gettop)
         cd $T > /dev/null
-        vendor/gzosp/build/tools/roomservice.py $product
+        vendor/bootleggers/build/tools/roomservice.py $product
         cd - > /dev/null
         check_product $product
     else
         T=$(gettop)
         cd $T > /dev/null
-        vendor/gzosp/build/tools/roomservice.py $product true
+        vendor/bootleggers/build/tools/roomservice.py $product true
         cd - > /dev/null
     fi
 
@@ -1640,7 +1640,7 @@ function reposync() {
 
 function repopick() {
     T=$(gettop)
-    $T/vendor/gzosp/build/tools/repopick.py $@
+    $T/vendor/bootleggers/build/tools/repopick.py $@
 }
 
 function fixup_common_out_dir() {
@@ -1691,7 +1691,7 @@ function installboot()
     sleep 1
     adb wait-for-online shell mount /system 2>&1 > /dev/null
     adb wait-for-online remount
-    if (adb shell getprop ro.gzosp.device | grep -q "$GZOSP_BUILD");
+    if (adb shell getprop ro.bootleg.device | grep -q "$BOOTLEG_BUILD");
     then
         adb push $OUT/boot.img /cache/
         for i in $OUT/system/lib/modules/*;
@@ -1736,13 +1736,13 @@ function installrecovery()
     sleep 1
     adb wait-for-online shell mount /system 2>&1 > /dev/null
     adb wait-for-online remount
-    if (adb shell getprop ro.gzosp.device | grep -q "$GZOSP_BUILD");
+    if (adb shell getprop ro.bootleg.device | grep -q "$BOOTLEG_BUILD");
     then
         adb push $OUT/recovery.img /cache/
         adb shell dd if=/cache/recovery.img of=$PARTITION
         echo "Installation complete."
     else
-        echo "The connected device does not appear to be $GZOSP_BUILD, run away!"
+        echo "The connected device does not appear to be $BOOTLEG_BUILD, run away!"
     fi
 }
 
@@ -1762,7 +1762,7 @@ function dopush()
         echo "Device Found."
     fi
 
-    if (adb shell getprop ro.gzosp.device | grep -q "$GZOSP_BUILD") || [ "$FORCE_PUSH" == "true" ];
+    if (adb shell getprop ro.bootleg.device | grep -q "$BOOTLEG_BUILD") || [ "$FORCE_PUSH" == "true" ];
     then
     # retrieve IP and PORT info if we're using a TCP connection
     TCPIPPORT=$(adb devices | egrep '^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+:[0-9]+[^0-9]+' \
@@ -2041,4 +2041,4 @@ addcompletions
 
 export ANDROID_BUILD_TOP=$(gettop)
 
-. $ANDROID_BUILD_TOP/vendor/gzosp/build/envsetup.sh
+. $ANDROID_BUILD_TOP/vendor/bootleggers/build/envsetup.sh
