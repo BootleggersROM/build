@@ -2788,19 +2788,24 @@ bacon: otapackage
 bootleg: otapackage
 	$(hide) ln -f $(INTERNAL_OTA_PACKAGE_TARGET) $(BOOTLEG_TARGET_PACKAGE)
 	$(hide) $(MD5SUM) $(BOOTLEG_TARGET_PACKAGE) > $(BOOTLEG_TARGET_PACKAGE).md5sum
-	@echo -e ${CL_RED}""${CL_RED}
-	@echo -e ${CL_RED}"    ▄██████▄   ▄███████▄   ▄██████▄     ▄████████    ▄███████▄ "${CL_RED}
-	@echo -e ${CL_RED}"   ███    ███ ██▀     ▄██ ███    ███   ███    ███   ███    ███ "${CL_RED}
-	@echo -e ${CL_RED}"   ███    █▀        ▄███▀ ███    ███   ███    █▀    ███    ███ "${CL_RED}
-	@echo -e ${CL_RED}"  ▄███         ▀█▀▄███▀▄▄ ███    ███   ███          ███    ███ "${CL_RED}
-	@echo -e ${CL_RED}" ▀▀███ ████▄    ▄███▀   ▀ ███    ███ ▀███████████ ▀█████████▀ "${CL_RED}
-	@echo -e ${CL_RED}"   ███    ███ ▄███▀       ███    ███          ███   ███ "${CL_RED}
-	@echo -e ${CL_RED}"   ███    ███ ███▄     ▄█ ███    ███    ▄█    ███   ███ "${CL_RED}
-	@echo -e ${CL_RED}"   ████████▀   ▀████████▀  ▀██████▀   ▄████████▀   ▄████▀ "${CL_RED}
-	@echo -e ${CL_RED}"                           A Ground Zero Roms "${CL_RED}
-	@echo -e ${CL_RED}"                                Project      "${CL_RED}
-	@echo -e "Package complete: $(BOOTLEG_TARGET_PACKAGE)"
-
+	@echo -e ${CL_BLU}""${CL_BLU}
+	@echo -e ${CL_BLU}" ######  ####### #        #####  "${CL_BLU}
+	@echo -e ${CL_BLU}" #     #    #    #       #     # "${CL_BLU}
+	@echo -e ${CL_BLU}" #     #    #    #       #       "${CL_BLU}
+	@echo -e ${CL_BLU}" ######     #    #       #  #### "${CL_BLU}
+	@echo -e ${CL_BLU}" #     #    #    #       #     # "${CL_BLU}
+	@echo -e ${CL_BLU}" #     #    #    #       #     # "${CL_BLU}
+	@echo -e ${CL_BLU}" ######     #    #######  #####  "${CL_BLU}
+	@echo -e ${CL_BLU}"                                 "${CL_BLU}
+	@echo -e ${CL_CYN}"          Bootleggers ROM         "${CL_CYN}
+	@echo -e ${CL_CYN}"    or another ROM in the block   "${CL_CYN}
+	@echo -e ${CL_CYN}"                "${CL_CYN}
+	@echo -e ${CL_CYN}"                "${CL_CYN}
+	@echo -e ${CL_CYN}"                "${CL_CYN}
+	@echo -e ${CL_CYN}"The build is done, be sure to get it on:"${CL_CYN}
+	@echo -e ${CL_CYN}"$(BOOTLEG_TARGET_PACKAGE)"${CL_CYN}
+	@echo -e ${CL_CYN}"                "${CL_CYN}
+	@echo -e ${CL_CYN}"Also, enjoy your $(BOOTLEG_BUILD_TYPE) build"${CL_CYN}  
 endif    # build_ota_package
 
 # -----------------------------------------------------------------
