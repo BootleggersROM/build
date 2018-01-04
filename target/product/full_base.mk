@@ -38,7 +38,7 @@ PRODUCT_PACKAGES += \
     PhotoTable
 
 # Additional settings used in all AOSP builds
-ifeq ($(wildcard vendor/gzosp/google/GoogleAudio.mk),)
+ifeq ($(wildcard vendor/bootleggers/google/GoogleAudio.mk),)
 PRODUCT_PROPERTY_OVERRIDES := \
     ro.config.ringtone=Ring_Synth_04.ogg \
     ro.config.notification_sound=pixiedust.ogg
