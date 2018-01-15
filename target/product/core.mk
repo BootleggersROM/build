@@ -53,6 +53,7 @@ PRODUCT_PACKAGES += \
     Settings \
     SettingsBlackThemeOverlay \
     SettingsDarkThemeOverlay \
+    SettingsShishuThemeOverlay \
     SharedStorageBackup \
     StorageManager \
     Telecom \
