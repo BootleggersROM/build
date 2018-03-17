@@ -526,7 +526,7 @@ else if get_stage("%(bcb_dev)s") == "3/3" then
     buildidn = GetBuildProp("ro.build.id", OPTIONS.info_dict)
     buildday = GetBuildProp("ro.build.date", OPTIONS.info_dict)
     securep = GetBuildProp("ro.build.version.security_patch", OPTIONS.info_dict)
-    density = GetBuildProp("ro.sf.lcd_density", OPTIONS.info_dict)
+    #density = GetBuildProp("ro.sf.lcd_density", OPTIONS.info_dict)
     device = GetBuildProp("ro.bootleg.device", OPTIONS.info_dict)
     devicefull = GetBuildProp("ro.product.name", OPTIONS.info_dict)
     songcodename = GetBuildProp("ro.bootleg.songcodename", OPTIONS.info_dict)
@@ -561,7 +561,7 @@ else if get_stage("%(bcb_dev)s") == "3/3" then
     script.Print("");
     script.Print(" Manufacturer: %s"%(manifacturer));
     script.Print("");
-    script.Print(" LCD density: %s"%(density));
+    #script.Print(" LCD density: %s"%(density));
     script.Print("");
     script.Print("**************************************************");
   if OPTIONS.wipe_user_data:
