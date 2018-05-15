@@ -177,7 +177,7 @@ include $(BUILD_SYSTEM)/device.mk
 
 # A Bootleggers build needs only the specific product makefiles.
 ifneq ($(BOOTLEGGERS_BUILD),)
-  all_product_configs := $(shell find device -path "*/$(BOOTLEGGERS_BUILD)/bootleg.mk")
+  all_product_configs := $(shell find device -path "*/*/bootleg.mk")
 else
   ifneq ($(strip $(TARGET_BUILD_APPS)),)
   # An unbundled app build needs only the core product makefiles.
