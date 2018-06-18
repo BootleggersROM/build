@@ -35,6 +35,8 @@ PRODUCT_PACKAGES := \
     SystemUIShishuNightsThemeOverlay \
     SystemShishuIllusionThemeOverlay \
     SystemUIShishuIllusionThemeOverlay \
+    SystemShishuInmensityThemeOverlay \
+    SystemUIShishuInmensityThemeOverlay \
     EasterEgg \
     WallpaperCropper
 

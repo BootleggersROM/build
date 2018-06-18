@@ -56,6 +56,7 @@ PRODUCT_PACKAGES += \
     SettingsShishuThemeOverlay \
     SettingsShishuNightsThemeOverlay \
     SettingsShishuIllusionThemeOverlay \
+    SettingsShishuInmensityThemeOverlay \
     SharedStorageBackup \
     StorageManager \
     SubstratumService \
