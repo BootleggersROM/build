@@ -48,8 +48,11 @@ PRODUCT_PACKAGES := \
 	SystemBlackThemeOverlay \
 	SystemDarkThemeOverlay \
     SystemShishuThemeOverlay \
+    SystemUIShishuThemeOverlay \
     SystemShishuNightsThemeOverlay \
+    SystemUIShishuNightsThemeOverlay \
     SystemShishuIllusionThemeOverlay \
+    SystemUIShishuIllusionThemeOverlay \
 	EasterEgg \
 	WallpaperPicker \
 	WidgetPreview
