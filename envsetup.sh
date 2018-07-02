@@ -129,8 +129,8 @@ function check_product()
         echo "Couldn't locate the top of the tree.  Try setting TOP." >&2
         return
     fi
-    if (echo -n $1 | grep -q -e "^bootleggers_") ; then
-        BOOTLEGGERS_BUILD=$(echo -n $1 | sed -e 's/^bootleggers_//g')
+    if (echo -n $1 | grep -q -e "^bootleg_") ; then
+        BOOTLEGGERS_BUILD=$(echo -n $1 | sed -e 's/^bootleg_//g')
         export BUILD_NUMBER=$( (date +%s%N ; echo $BOOTLEGGERS_BUILD; hostname) | openssl sha1 | sed -e 's/.*=//g; s/ //g' | cut -c1-10 )
     else
         BOOTLEGGERS_BUILD=
