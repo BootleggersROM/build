@@ -835,6 +835,29 @@ else if get_stage("%(bcb_dev)s") == "3/3" then
 
   system_progress = 0.75
 
+  script.Print("**************************************************");
+  script.Print("*MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM*");
+  script.Print("*MMMMMMMMMMMMMMMMMMMMMN0kOKWMMMMMMMMMMMMMMMMMMMMM*");
+  script.Print("*MMMMMMMMMMMMMMMMMMMMM0'..oWMMMMMMMMMMMMMMMMMMMMM*");
+  script.Print("*MMMMMMMMMNkddddddddodc. .,oddddoddddd0WMMMMMMMMM*");
+  script.Print("*MMMMMMMMMO' ':::::::::::::::::::::;. cNMMMMMMMMM*");
+  script.Print("*MMMMMMMMMO'.kWWNNNNNNNNNNNNNNNNNWWN: cNMMMMMMMMM*");
+  script.Print("*MMMMMMMMMKc:0Kl;;;;;,,'''',;;;;;c0Nd,dNMMMMMMMMM*");
+  script.Print("*MMMMMMMMMWWWWN0kkko;. .'...oOOOOOXNKNWMMMMMMMMMM*");
+  script.Print("*MMMMMMMMMMMMWXOdl;.  :0XKl.cXMMW0o,'xNMMMMMMMMMM*");
+  script.Print("*MMMMMMMMMWOc;,,;lxx; .c0NK:.cOd;..:xXWMMMMMMMMMM*");
+  script.Print("*MMMMMMMMMWKxk0XXOd:,;;..;oO:. .:xKWMMMMMMMMMMMMM*");
+  script.Print("*MMMMMMMMMWNKko:,,:d0XO,   l0l..dNMMMMMMMMMMMMMMM*");
+  script.Print("*MMMMMMMMMWx;,:okXNKd;.,:;..dNk,.,dXWMMMMMMMMMMMM*");
+  script.Print("*MMMMMMMMMMNXXNXko;',lONX0: cNMNx;..cxKNMMMMMMMMM*");
+  script.Print("*MMMMMMMMWXOdl;'':oONMMWOl' lNMMMNOo,.'dNMMMMMMMM*");
+  script.Print("*MMMMMMMMWk;,:oOXWXdlol:. .cKMMMMMMMWK0NMMMMMMMMM*");
+  script.Print("*MMMMMMMMMWNNMMMMMXxcccldx0NMMMMMMMMMMMMMMMMMMMMM*");
+  script.Print("*MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM*");
+  script.Print("**************************************************");
+  script.Print("*****************Bootleggers ROM******************");
+  script.Print("**************************************************");
+
   if OPTIONS.wipe_user_data:
     system_progress -= 0.1
   if HasVendorPartition(input_zip):
