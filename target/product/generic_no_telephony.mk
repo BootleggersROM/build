@@ -24,6 +24,8 @@ PRODUCT_PACKAGES := \
     Gallery2 \
     Music \
     MusicFX \
+    LiveWallpapersPicker \
+    android.software.live_wallpaper.xml \
     OneTimeInitializer \
     Provision \
     SystemUI \
