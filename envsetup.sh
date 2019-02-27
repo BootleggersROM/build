@@ -722,8 +722,6 @@ function lunch()
 
     echo
 
-    fixup_common_out_dir
-
     set_stuff_for_environment
     printconfig
     destroy_build_var_cache
@@ -1701,7 +1699,6 @@ function mk_timer()
     fi
     echo " ####${color_reset}"
     echo
-    prebuilts/sdk/tools/jack-admin stop-server 2>&1 >/dev/null
     return $ret
 }
 
