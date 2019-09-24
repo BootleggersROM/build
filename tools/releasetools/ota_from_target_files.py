@@ -918,20 +918,19 @@ else if get_stage("%(bcb_dev)s") == "3/3" then
 
   device_specific.FullOTA_InstallBegin()
 
-  if target_info.get("system_root_image") == "true":
-    sys_mount = "/"
-  else:
-    sys_mount = "/system"
-
   CopyInstallTools(output_zip)
   script.UnpackPackageDir("install", "/tmp/install")
   script.SetPermissionsRecursive("/tmp/install", 0, 0, 0o755, 0o644, None, None)
   script.SetPermissionsRecursive("/tmp/install/bin", 0, 0, 0o755, 0o755, None, None)
-  script.MountSys("check", sys_mount)
+
+  if target_info.get("system_root_image") == "true":
+    sysmount = "/"
+  else:
+    sysmount = "/system"
 
   if OPTIONS.backuptool:
     script.Print("BackupTools: starting backup script")
-    script.MountSys("backup", sys_mount)
+    script.RunBackup("backup", sysmount)
     script.Print("BackupTools: DONE! Now real installation will begin")
 
   system_progress = 0.75
@@ -1067,7 +1066,7 @@ else if get_stage("%(bcb_dev)s") == "3/3" then
   if OPTIONS.backuptool:
     script.ShowProgress(0.02, 10)
     script.Print("BackupTools: Restoring backup")
-    script.MountSys("restore", sys_mount)
+    script.RunBackup("restore", sysmount)
     script.Print("BackupTools: DONE!")
 
   script.ShowProgress(0.05, 5)
