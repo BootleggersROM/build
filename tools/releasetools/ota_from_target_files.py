@@ -984,7 +984,7 @@ else if get_stage("%(bcb_dev)s") == "3/3" then
     script.Print("");
     script.Print(" Manufacturer: %s"%(manifacturer));
     script.Print("");
-    script.Print(" *******************************************");
+    script.Print("**************************************************");
 
   if OPTIONS.wipe_user_data:
     system_progress -= 0.1
