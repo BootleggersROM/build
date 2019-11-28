@@ -948,7 +948,7 @@ else if get_stage("%(bcb_dev)s") == "3/3" then
     songcodename = target_info.GetBuildProp("ro.bootleggers.songcodename")
     buildtype = target_info.GetBuildProp("ro.bootleggers.releasetype")
     androidver = target_info.GetBuildProp("ro.build.version.release")
-    manifacturer = target_info.GetBuildProp("ro.product.manufacturer")
+    manufacturer = target_info.GetBuildProp("ro.product.manufacturer")
     sdkver = target_info.GetBuildProp("ro.build.version.sdk")
     if buildtype == "Shishufied":
       buildmean = "Official"
@@ -982,7 +982,7 @@ else if get_stage("%(bcb_dev)s") == "3/3" then
     script.Print("***************** Device Info ********************");
     script.Print(" Device: %s (%s)"%(devicefull, device));
     script.Print("");
-    script.Print(" Manufacturer: %s"%(manifacturer));
+    script.Print(" Manufacturer: %s"%(manufacturer));
     script.Print("");
     script.Print("**************************************************");
 
