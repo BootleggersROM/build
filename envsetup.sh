@@ -30,8 +30,6 @@ Invoke ". build/envsetup.sh" from your shell to add the following functions to y
 - gomod:      Go to the directory containing a module.
 - pathmod:    Get the directory containing a module.
 - refreshmod: Refresh list of modules for allmod/gomod.
-- mka:       Builds using SCHED_BATCH on all processors
-- reposync:  Parallel repo sync using ionice and SCHED_BATCH
 
 EOF
 
@@ -584,86 +582,19 @@ function print_lunch_menu()
     local uname=$(uname)
     echo
     echo "You're building on" $uname
-    if [ "$(uname)" = "Darwin" ] ; then
-       echo "  (ohai, iSheep!!)"
-    fi
     echo
-    if [ "z${CUSTOM_DEVICES_ONLY}" != "z" ]; then
-       echo "Breakfast menu... pick a combo:"
-       echo " "
-    else
-       echo "Lunch menu... pick a combo:"
-       echo " "
-    fi
+    echo "Lunch menu... pick a combo:"
 
     local i=1
     local choice
     for choice in $(TARGET_BUILD_APPS= get_build_var COMMON_LUNCH_CHOICES)
     do
-        echo " $i. $choice "
+        echo "     $i. $choice"
         i=$(($i+1))
     done
 
-    if [ "z${CUSTOM_DEVICES_ONLY}" != "z" ]; then
-       echo " "
-       echo "... time to mka bacon!!"
-    fi
-
     echo
 }
-
-function brunch()
-{
-    breakfast $*
-    if [ $? -eq 0 ]; then
-        time mka bacon
-    else
-        echo "No such item in brunch menu. Try 'breakfast'"
-        return 1
-    fi
-    return $?
-}
-
-function omnom
-{
-    brunch $*
-    eat
-}
-
-function breakfast()
-{
-    target=$1
-    local variant=$2
-    BOOTLEGGERS_DEVICES_ONLY="true"
-    unset LUNCH_MENU_CHOICES
-    add_lunch_combo full-eng
-    for f in `/bin/ls vendor/bootleggers/vendorsetup.sh 2> /dev/null`
-        do
-            echo "including $f"
-            . $f
-        done
-    unset f
-
-    if [ $# -eq 0 ]; then
-        # No arguments, so let's have the full menu
-        lunch
-    else
-        echo "z$target" | grep -q "-"
-        if [ $? -eq 0 ]; then
-            # A buildtype was specified, assume a full device name
-            lunch $target
-        else
-            # This is probably just the Bootleggers model name
-            if [ -z "$variant" ]; then
-                variant="userdebug"
-            fi
-            lunch bootleg_$target-$variant
-        fi
-    fi
-    return $?
-}
-
-alias bib=breakfast
 
 function lunch()
 {
@@ -1463,28 +1394,6 @@ function _complete_android_module_names() {
     COMPREPLY=( $(allmod | grep -E "^$word") )
 }
 
-function mka() {
-    case `uname -s` in
-        Darwin)
-            make -j `sysctl hw.ncpu|cut -d" " -f2` "$@"
-            ;;
-        *)
-            mk_timer schedtool -B -n 1 -e ionice -n 1 make -j$(cat /proc/cpuinfo | grep "^processor" | wc -l) "$@"
-            ;;
-    esac
-}
-
-function reposync() {
-    case `uname -s` in
-        Darwin)
-            repo sync -j 4 "$@"
-            ;;
-        *)
-            schedtool -B -n 1 -e ionice -n 1 `which repo` sync -j 4 "$@"
-            ;;
-    esac
-}
-
 # Print colored exit condition
 function pez {
     "$@"
@@ -1515,14 +1424,14 @@ function get_make_command()
     fi
 }
 
-function mk_timer()
+function _wrap_build()
 {
     if [[ "${ANDROID_QUIET_BUILD:-}" == true ]]; then
       "$@"
       return $?
     fi
     local start_time=$(date +"%s")
-    $@
+    "$@"
     local ret=$?
     local end_time=$(date +"%s")
     local tdiff=$(($end_time-$start_time))
@@ -1594,7 +1503,7 @@ function mmma()
 
 function make()
 {
-    mk_timer $(get_make_command "$@") "$@"
+    _wrap_build $(get_make_command "$@") "$@"
 }
 
 function provision()
