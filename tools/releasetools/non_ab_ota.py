@@ -256,9 +256,10 @@ else if get_stage("%(bcb_dev)s") == "3/3" then
     androidver = target_info.GetBuildProp("ro.build.version.release")
     manufacturer = target_info.GetBuildProp("ro.product.manufacturer")
     sdkver = target_info.GetBuildProp("ro.build.version.sdk")
-    if buildtype == "Shishufied":
+    releasetype = buildtype.split("-")[0]
+    if releasetype == "Shishufied":
       buildmean = "Official"
-    elif buildtype == "Unshishufied":
+    elif releasetype == "Unshishufied":
       buildmean = "Unofficial"
     else:
       buildmean = "Unsupported"
