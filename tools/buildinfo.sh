@@ -46,7 +46,10 @@ fi
 if [ -n "$PRODUCT_DEFAULT_LOCALE" ] ; then
   echo "ro.product.locale=$PRODUCT_DEFAULT_LOCALE"
 fi
-echo "ro.wifi.channels=$PRODUCT_DEFAULT_WIFI_CHANNELS"
+
+if [ -n "$PRODUCT_DEFAULT_WIFI_CHANNELS" ] ; then
+  echo "ro.wifi.channels=$PRODUCT_DEFAULT_WIFI_CHANNELS"
+fi
 
 echo "# ro.build.product is obsolete; use ro.product.device"
 echo "ro.build.product=$TARGET_DEVICE"
